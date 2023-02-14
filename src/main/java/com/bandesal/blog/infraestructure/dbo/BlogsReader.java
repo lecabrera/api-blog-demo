@@ -14,11 +14,12 @@ public class BlogsReader {
     private BlogsReaderPK id;
 
     @ManyToOne
+    @JsonIgnoreProperties("readers")
+    @MapsId("idBlog")
     @JoinColumn(name = "id_b", insertable = false, updatable = false)
     private Blog blog;
 
     @ManyToOne
-    @JsonIgnoreProperties("blogs")
     @JoinColumn(name = "id_r", insertable = false, updatable = false)
     private Reader reader;
 

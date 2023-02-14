@@ -3,6 +3,8 @@ package com.bandesal.blog.application.service;
 import com.bandesal.blog.application.repository.IBlogService;
 import com.bandesal.blog.infraestructure.dbo.Blog;
 import com.bandesal.blog.infraestructure.repository.IBlogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,14 @@ import java.util.Optional;
 
 @Service
 public class BlogService implements IBlogService {
+    Logger logger;
     @Autowired
     private IBlogRepository iBlogRepository;
+
+    public BlogService(){
+        this.logger = LoggerFactory.getLogger(getClass());
+    }
+
     @Override
     public Optional<Blog> getBlogByTitle(String title) {
         return iBlogRepository.findBlogByTitle(title);
@@ -26,6 +34,9 @@ public class BlogService implements IBlogService {
 
     @Override
     public Blog createNewBlog(Blog blog) {
+        blog.getReaders().forEach(reader ->
+            reader.setBlog(blog)
+        );
         return iBlogRepository.save(blog);
     }
 

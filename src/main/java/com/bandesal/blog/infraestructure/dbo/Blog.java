@@ -1,5 +1,6 @@
 package com.bandesal.blog.infraestructure.dbo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -27,5 +28,9 @@ public class Blog {
     private Integer idBlog;
     private String title;
     private String description;
+
+    @JsonIgnoreProperties("blog")
+    @OneToMany(mappedBy = "blog",  cascade = {CascadeType.ALL})
+    private List<BlogsReader> readers;
 
 }

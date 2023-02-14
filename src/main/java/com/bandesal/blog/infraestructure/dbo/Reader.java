@@ -27,9 +27,7 @@ public class Reader {
     private Integer idReader;
     @Column(name = "name")
     private String name;
-    @JsonIgnoreProperties("reader")
-    @OneToMany(mappedBy = "reader",  cascade = {CascadeType.ALL})
-    private List<BlogsReader> blogs;
+
 
 }
 
